@@ -14,6 +14,10 @@ public class UserDetailsImpl implements UserDetails {
   private static final String ROLE = "ROLE_";
   private User user;
 
+  public User getUser() {
+    return user;
+  }
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return Arrays.asList(new SimpleGrantedAuthority(ROLE + user.getRole().toString()));

@@ -61,6 +61,7 @@ public class UserService {
    * @param userDTO object describing user.
    * @return the updated user.
    */
+  @NonNull
   public Optional<User> update(@NonNull UserDTO userDTO) {
     Optional<User> user = userRepository.findById(userDTO.getId());
     if (!user.isPresent()) {
@@ -96,6 +97,7 @@ public class UserService {
     return userRepository.findByUsername(username);
   }
 
+  @NonNull
   private User initUser(@NonNull UserDTO userDTO) {
     User user = new User();
     user.setId(userDTO.getId());

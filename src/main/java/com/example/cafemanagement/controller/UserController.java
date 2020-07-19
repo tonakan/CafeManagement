@@ -59,9 +59,9 @@ public class UserController {
       nickname = "createUser",
       authorizations = {@Authorization(value = "basicAuth")})
   @PostMapping
-  public ResponseEntity<User> create(@RequestBody UserDTO user) {
+  public ResponseEntity<UserDTO> create(@RequestBody UserDTO user) {
     User createdUser = userService.create(user);
-    return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    return new ResponseEntity<>(new UserDTO(createdUser), HttpStatus.CREATED);
   }
 
   @PreAuthorize("hasRole('ROLE_MANAGER')")

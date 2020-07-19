@@ -18,9 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests for ProductService class.
- */
+/** Tests for ProductService class. */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CafemanagementApplication.class)
 class ProductServiceTest {
@@ -43,6 +41,7 @@ class ProductServiceTest {
   private Product getProduct(String suffix) {
     Product product = new Product();
     product.setName("prod" + suffix);
+    product.setPrice(10.6);
     return product;
   }
 
@@ -77,6 +76,7 @@ class ProductServiceTest {
   public void testCreate() {
     ProductDTO productDTO = new ProductDTO();
     productDTO.setName("createProd");
+    productDTO.setPrice(54.9);
     User creator = getUser();
     Product product = productService.create(productDTO, creator);
     assertEquals(productDTO.getName(), product.getName());
@@ -90,6 +90,7 @@ class ProductServiceTest {
     ProductDTO productDTO = new ProductDTO();
     productDTO.setName("newprodupdated");
     productDTO.setId(product.getId());
+    productDTO.setPrice(product.getPrice());
     Optional<Product> updated = productService.update(productDTO);
     assertTrue(updated.isPresent());
     assertEquals(productDTO.getName(), updated.get().getName());
@@ -101,6 +102,7 @@ class ProductServiceTest {
   public void testDelete() {
     Product product = new Product();
     product.setName("prod");
+    product.setPrice(39.8);
     product = productRepository.saveAndFlush(product);
     Optional<Product> deleted = productService.delete(product.getId());
     assertTrue(deleted.isPresent());

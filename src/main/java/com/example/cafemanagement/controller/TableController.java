@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 /** REST controller for the tables. */
-@Api("Tables")
+@Api(value = "Tables", tags = "Tables")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1/table")
@@ -28,9 +28,9 @@ public class TableController {
 
   @PreAuthorize("hasRole('ROLE_MANAGER')")
   @ApiOperation(
-          value = "Get all tables.",
-          nickname = "getAllTables",
-          authorizations = {@Authorization(value = "basicAuth")})
+      value = "Get all tables.",
+      nickname = "getAllTables",
+      authorizations = {@Authorization(value = "basicAuth")})
   @GetMapping
   public ResponseEntity<List<Table>> getAllTables() {
     return ResponseEntity.ok(tableService.findAll());
@@ -38,9 +38,9 @@ public class TableController {
 
   @PreAuthorize("hasRole('ROLE_MANAGER')")
   @ApiOperation(
-          value = "Get a table by id.",
-          nickname = "getTableById",
-          authorizations = {@Authorization(value = "basicAuth")})
+      value = "Get a table by id.",
+      nickname = "getTableById",
+      authorizations = {@Authorization(value = "basicAuth")})
   @GetMapping("{id}")
   public ResponseEntity<Table> get(@PathVariable final Integer id) {
     if (id == null) {
@@ -55,14 +55,14 @@ public class TableController {
 
   @PreAuthorize("hasRole('ROLE_MANAGER')")
   @ApiOperation(
-          value = "Create a table.",
-          nickname = "createTable",
-          authorizations = {@Authorization(value = "basicAuth")})
+      value = "Create a table.",
+      nickname = "createTable",
+      authorizations = {@Authorization(value = "basicAuth")})
   @PostMapping
   public ResponseEntity<Table> create(@RequestBody TableDTO table) {
     User creator =
-            ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-                    .getUser();
+        ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+            .getUser();
     Table createdTable = tableService.create(table, creator);
     if (createdTable == null) {
       return ResponseEntity.badRequest().build();
@@ -72,9 +72,9 @@ public class TableController {
 
   @PreAuthorize("hasRole('ROLE_MANAGER')")
   @ApiOperation(
-          value = "Update a table.",
-          nickname = "updateTable",
-          authorizations = {@Authorization(value = "basicAuth")})
+      value = "Update a table.",
+      nickname = "updateTable",
+      authorizations = {@Authorization(value = "basicAuth")})
   @PutMapping("{id}")
   public ResponseEntity<Table> update(@RequestBody TableDTO table, @PathVariable final Integer id) {
     if (id == null) {
@@ -90,9 +90,9 @@ public class TableController {
 
   @PreAuthorize("hasRole('ROLE_MANAGER')")
   @ApiOperation(
-          value = "Delete a table.",
-          nickname = "deleteTable",
-          authorizations = {@Authorization(value = "basicAuth")})
+      value = "Delete a table.",
+      nickname = "deleteTable",
+      authorizations = {@Authorization(value = "basicAuth")})
   @DeleteMapping("{id}")
   public ResponseEntity<Table> delete(@PathVariable final Integer id) {
     if (id == null) {
@@ -107,14 +107,14 @@ public class TableController {
 
   @PreAuthorize("hasRole('ROLE_WAITER')")
   @ApiOperation(
-          value = "Get all tables assigned to waiter.",
-          nickname = "getAllAssignedTables",
-          authorizations = {@Authorization(value = "basicAuth")})
+      value = "Get all tables assigned to waiter.",
+      nickname = "getAllAssignedTables",
+      authorizations = {@Authorization(value = "basicAuth")})
   @GetMapping("/assigned")
   public ResponseEntity<List<Table>> getAllAssignedTables() {
     User waiter =
-            ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-                    .getUser();
+        ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+            .getUser();
     return ResponseEntity.ok(tableService.findAllAssigned(waiter));
   }
 }

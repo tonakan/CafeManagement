@@ -91,6 +91,7 @@ public class ProductService {
     product.setId(productDTO.getId());
     product.setName(productDTO.getName());
     product.setCreator(user);
+    product.setPrice(productDTO.getPrice());
     return product;
   }
 }

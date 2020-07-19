@@ -2,5 +2,6 @@ package com.example.cafemanagement.model;
 
 public enum ProductInOrderStatus {
   ACTIVE,
-  CANCELLED
+  CANCELLED,
+  PROCESSED
 }

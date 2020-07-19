@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /** REST controller for the users. */
-@Api("Users")
+@Api(value = "Users", tags = "Users")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1/user")

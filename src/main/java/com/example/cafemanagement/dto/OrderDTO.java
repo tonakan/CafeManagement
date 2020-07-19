@@ -1,5 +1,6 @@
 package com.example.cafemanagement.dto;
 
+import com.example.cafemanagement.model.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductDTO {
+public class OrderDTO {
   private Integer id;
-  private String name;
-  private Double price;
+  private OrderStatus status;
+  private Integer tableId;
 }

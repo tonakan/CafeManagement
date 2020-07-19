@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,8 +22,12 @@ public class Order {
   @Enumerated(EnumType.STRING)
   private OrderStatus status;
 
-  @ManyToOne
-  User creator;
+  @ManyToOne private Table table;
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<ProductInOrder> products;
+
+  @ManyToOne User creator;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date created = new Date();

@@ -5,7 +5,6 @@ import com.example.cafemanagement.model.Role;
 import com.example.cafemanagement.model.Table;
 import com.example.cafemanagement.model.User;
 import com.example.cafemanagement.repository.TableRepository;
-import com.example.cafemanagement.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.NonNull;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /** Logic implementation for users. */
 @AllArgsConstructor
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
 public class TableService {
   private static final String[] IGNORE_FIELDS = {"id", "creator", "created"};
   private final TableRepository tableRepository;
-  private final UserRepository userRepository;
+  private final UserService userService;
 
   /**
    * Reads all the tables from repository.
@@ -96,11 +94,22 @@ public class TableService {
     return table;
   }
 
+  /**
+   * Reads all tables assigned to the {@code waiter}.
+   *
+   * @param waiter the waiter.
+   * @return list of tables assigned to {@code waiter}.
+   */
   @NonNull
+  public List<Table> findAllAssigned(@NonNull User waiter) {
+    return tableRepository.findByAssignedTo_Id(waiter.getId());
+  }
+
+  @Nullable
   private Table initTable(@NonNull TableDTO tableDTO, @Nullable User user) {
     Optional<User> assignedTo = Optional.empty();
     if (tableDTO.getAssignedTo() != null) {
-      assignedTo = userRepository.findById(tableDTO.getAssignedTo());
+      assignedTo = userService.findById(tableDTO.getAssignedTo());
     }
     if (assignedTo.isPresent() && assignedTo.get().getRole().equals(Role.MANAGER)) {
       return null;
@@ -112,18 +121,5 @@ public class TableService {
       table.setAssignedTo(assignedTo.get());
     }
     return table;
-  }
-
-  /**
-   * Reads all tables assigned to the {@code waiter}.
-   * @param waiter the waiter.
-   * @return list of tables assigned to {@code waiter}.
-   */
-  @NonNull
-  public List<Table> findAllAssigned(@NonNull User waiter) {
-    return tableRepository.findAll().stream()
-            .filter(table -> table.getAssignedTo() != null)
-            .filter(table -> table.getAssignedTo().getId().equals(waiter.getId()))
-            .collect(Collectors.toList());
   }
 }

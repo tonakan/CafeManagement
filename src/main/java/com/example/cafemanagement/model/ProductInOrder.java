@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,9 +25,12 @@ public class ProductInOrder {
   @Column(nullable = false)
   private ProductInOrderStatus status;
 
-  @ManyToOne
-  private Product product;
+  @ManyToOne private Product product;
 
-  @ManyToOne
-  private Order order;
+  @ManyToOne private Order order;
+
+  @ManyToOne User creator;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date created = new Date();
 }

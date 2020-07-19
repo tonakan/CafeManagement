@@ -20,8 +20,6 @@ public class Table {
 
   @ManyToOne User assignedTo;
 
-  @ManyToOne Order order;
-
   @ManyToOne User creator;
 
   @Temporal(TemporalType.TIMESTAMP)

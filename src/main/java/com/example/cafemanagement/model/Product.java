@@ -21,8 +21,10 @@ public class Product {
   @Column(unique = true)
   String name;
 
-  @ManyToOne
-  User creator;
+  @Column(nullable = false)
+  Double price;
+
+  @ManyToOne User creator;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date created = new Date();

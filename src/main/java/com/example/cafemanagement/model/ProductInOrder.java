@@ -6,24 +6,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "tables")
-public class Table {
+@Entity(name = "products_in_order")
+public class ProductInOrder {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @ManyToOne User assignedTo;
+  @Column(nullable = false)
+  private Integer amount;
 
-  @ManyToOne Order order;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private ProductInOrderStatus status;
 
-  @ManyToOne User creator;
+  @ManyToOne
+  private Product product;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date created = new Date();
+  @ManyToOne
+  private Order order;
 }

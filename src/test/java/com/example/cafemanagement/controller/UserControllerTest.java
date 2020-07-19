@@ -6,7 +6,6 @@ import com.example.cafemanagement.dto.UserDTO;
 import com.example.cafemanagement.model.Role;
 import com.example.cafemanagement.model.User;
 import com.example.cafemanagement.service.UserService;
-import com.example.cafemanagement.util.AbstractTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.hamcrest.core.IsNull;
@@ -39,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = CafemanagementApplication.class)
 @WebMvcTest(UserController.class)
-public class UserControllerTest extends AbstractTest {
+public class UserControllerTest {
   private static final String URI = "/api/v1/user/";
   @Autowired private MockMvc mvc;
   @Autowired ObjectMapper objectMapper;

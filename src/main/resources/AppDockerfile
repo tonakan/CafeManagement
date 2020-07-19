@@ -1,0 +1,4 @@
+FROM openjdk:8
+EXPOSE 8080
+ADD cafemanagement-0.0.1-SNAPSHOT.jar cafemanagement.jar
+ENTRYPOINT ["java","-jar","/cafemanagement.jar"]

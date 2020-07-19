@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+    app:
+        build:
+            dockerfile: AppDockerfile
+            context: .
+        ports:
+            - "8080:8080"
+        restart: always
+        depends_on:
+            - db
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:postgresql://db/cafemanagement
+            SPRING_DATASOURCE_USERNAME: test
+            SPRING_DATASOURCE_PASSWORD: test
+    db:
+        build:
+            context: .
+            dockerfile: DBDockerfile
+        ports:
+            - "5432:5432"
+        restart: always
+
